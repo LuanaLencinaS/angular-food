@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "findfood-bootcamp-angular": {
+      "hosting": {
+        "findfood": [
+          "findfood-bootcamp-angular"
+        ]
+      }
+    }
+  }
+}
