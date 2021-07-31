@@ -1,8 +1,8 @@
+import { RestauranteComponent } from './../restaurante/restaurante.component';
 import { NovoRestauranteComponent } from './../novo-restaurante/novo-restaurante.component';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { RestauranteComponent } from '../restaurante/restaurante.component';
 import { RestaurantesService } from '../shared/restaurantes.service';
 
 @Component({
