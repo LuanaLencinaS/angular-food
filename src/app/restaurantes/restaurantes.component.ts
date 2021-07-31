@@ -54,6 +54,7 @@ export class RestaurantesComponent implements OnInit {
 
     //busca os restaurantes no firebase
     this.listarRestaurantes();
+
     this._http.get('https://servicodados.ibge.gov.br/api/v1/localidades/regioes/1|2|3|4|5/estados').subscribe((res: any) => {
       let estados = res;
       estados = estados.sort((a: any, b: any) => (a.nome > b.nome) ? 1 : -1);
@@ -80,6 +81,8 @@ export class RestaurantesComponent implements OnInit {
   }
 
   novoRestaurante() {
+    //abre modal
+    //+ envia os dados pro modal
     const dialogRef = this.dialog.open(NovoRestauranteComponent, {
       width: '80%',
       height: 'max-content',
@@ -99,6 +102,9 @@ export class RestaurantesComponent implements OnInit {
   }
 
   abrirRestaurante(restaurante: any) {
+    //recebe os dados do restaurante
+    //abre o modal
+    //+ e mostra as informações
     this.dialog.open(RestauranteComponent, {
       width: "80%",
       height: "98vh",

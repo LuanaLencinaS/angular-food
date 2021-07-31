@@ -34,7 +34,7 @@
                 <div id="toBottom">
                     <div>
                         <mat-icon>location_on</mat-icon>
-                        <p>Jundiai, São Paulo</p>
+                        <p>{{ restaurante.cidade }}, {{ restaurante.estado.nome }}</p>
                     </div>
                     <button mat-flat-button color='primary' (click)="abrirRestaurante(restaurante)">
                         <mat-icon>visibility</mat-icon>

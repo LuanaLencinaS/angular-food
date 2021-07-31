@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { RestaurantesService } from '../shared/restaurantes.service';
 
 @Component({
   selector: 'app-novo-restaurante',
@@ -27,9 +28,12 @@ export class NovoRestauranteComponent implements OnInit {
   });
 
   constructor(
+    //constructor: parametros para a classe funcionar
     @Inject(MAT_DIALOG_DATA) public data: any, 
     private _http: HttpClient,
-    public dialogRef: MatDialogRef<NovoRestauranteComponent>) { }
+    public dialogRef: MatDialogRef<NovoRestauranteComponent>,
+    private _restaurantesService: RestaurantesService,
+  ) { }
 
   ngOnInit(): void {
     this.data = this.data.siglas;
@@ -78,16 +82,34 @@ export class NovoRestauranteComponent implements OnInit {
 
   salvarRestaurante(){
     const avaliacao = {
+      //estes valores vem do formulario
+      //digitados pelo usuario e capturado pelos formControlName
       nome: this.novoRestaurante.value.nome,
       estado: this.novoRestaurante.value.estado,
       cidade: this.novoRestaurante.value.cidade,
       descricao: this.novoRestaurante.value.descricao,
-      autorRestaurante: this.data.usuario,
+      // autorRestaurante: this.data.usuario,
       criadoEm: new Date(),
       estrelas: this.rating
     }
 
-    this.dialogRef.close(avaliacao);
+    if (this.selectedFile) {
+      //se o usuario selecionou uma imagem
+
+      //dos meus serviços de restaurantes
+      //chamo o método que manda as coisas ao firebase
+      //enviando a avaliação do usuario
+      //+ o arquivo da foto para o upload
+      this._restaurantesService.pushFileToStorage(avaliacao, this.currentFileUpload);
+
+      //o currentFileUpload é preenchido com o onFileSelected
+      //ou seja, quando seleciono a foto
+    } else {
+      alert('Parece que não foi inserido nenhum arquivo de imagem.');
+      //[lembrar]: trocar algum outro pop-up
+    }
+
+    this.dialogRef.close();
   }
 
 }
